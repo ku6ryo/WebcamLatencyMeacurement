@@ -12,8 +12,12 @@
 
 <script>
   const video = document.querySelector("#videoElement");
+  let currentStream;
   function start(frontFacing) {
     if (navigator.mediaDevices.getUserMedia) {
+      if (currentStream) {
+        currentStream.getTracks().forEach(track => track.stop());
+      }
       navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: frontFacing ? "user" : { exact: "environment" }
@@ -21,6 +25,7 @@
       })
       .then(function (stream) {
         video.srcObject = stream;
+        currentStream = stream;
       })
       .catch(function (e) {
         console.log(e)
