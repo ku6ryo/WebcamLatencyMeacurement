@@ -4,25 +4,34 @@
     height: auto;
   }
 </style>
+<select id="selector">
+  <option value="front">front</option>
+  <option value="rear">rear</option>
+</select>
 <video autoplay="true" id="videoElement"></video>
 
 <script>
-  var video = document.querySelector("#videoElement");
-  if (navigator.mediaDevices.getUserMedia) {
-    navigator.mediaDevices.getUserMedia({
-      video: {
-        facingMode: {
-          exact: 'environment'
-        }
-      },
-    })
-    .then(function (stream) {
-      video.srcObject = stream;
-    })
-    .catch(function (e) {
-      console.log("Something went wrong!");
-    });
-  } else {
-    alert("getUserMedia not supported on your browser!");
+  const video = document.querySelector("#videoElement");
+  function start(frontFacing) {
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({
+        video: {
+          facingMode: frontFacing ? "user" : "environment"
+        },
+      })
+      .then(function (stream) {
+        video.srcObject = stream;
+      })
+      .catch(function (e) {
+        console.log(e)
+        console.log("Something went wrong!");
+      });
+    } else {
+      alert("getUserMedia not supported on your browser!");
+    }
   }
+  start(true)
+  document.querySelector("#selector").addEventListener("change", function (event) {
+    start(event.target.value === "front");
+  });
 </script>
