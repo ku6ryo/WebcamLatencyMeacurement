@@ -16,7 +16,7 @@
     if (navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: frontFacing ? "user" : "environment"
+          facingMode: frontFacing ? "user" : { exact: "environment" }
         },
       })
       .then(function (stream) {
