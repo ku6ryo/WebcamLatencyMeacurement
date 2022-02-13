@@ -20,7 +20,7 @@
       }
       navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: frontFacing ? "user" : { exact: "environment" }
+          facingMode: frontFacing ? "user" : { exact: "environment" },
         },
       })
       .then(function (stream) {

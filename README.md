@@ -1,4 +1,4 @@
-
+Just a camera app using device camera. This can be used for testing purposes (latency measurement, FPS check etc.).
 
 # results
 
